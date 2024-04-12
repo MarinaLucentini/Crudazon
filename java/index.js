@@ -12,10 +12,17 @@ const createCard = (
   col.classList.add("col");
   const card = document.createElement("div");
   card.classList.add("card");
+  card.style.height = "600px";
   const imgProduct = document.createElement("img");
-  imgProduct.classList.add("card-img-top");
+  imgProduct.classList.add("card-img-top", "object-fit-cover");
   const containerText = document.createElement("div");
-  containerText.classList.add("card-body");
+  containerText.classList.add(
+    "card-body",
+    "h-100",
+    "d-flex",
+    "flex-column",
+    "justify-content-end"
+  );
   const nameProduct = document.createElement("h5");
   nameProduct.classList.add("card-title");
   const descriptionProduct = document.createElement("p");
@@ -23,7 +30,12 @@ const createCard = (
   const priceProduct = document.createElement("p");
   priceProduct.classList.add("card-text", "display-6");
   const btnContainer = document.createElement("div");
-  btnContainer.classList.add("d-flex", "justify-content-between");
+  btnContainer.classList.add(
+    "d-flex",
+    "justify-content-between",
+    "flex-column",
+    "flex-xl-row"
+  );
 
   const btnMoreInfo = document.createElement("a");
   btnMoreInfo.classList.add("btn", "btn-outline-secondary");

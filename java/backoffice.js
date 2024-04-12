@@ -5,7 +5,7 @@ const id = params.get("productId");
 const URL = id
   ? "https://striveschool-api.herokuapp.com/api/product/" + id
   : "https://striveschool-api.herokuapp.com/api/product/";
-const method = id ? "PUT" : "POST";
+const paperino = id ? "PUT" : "POST";
 
 const createNewProduct = (event) => {
   event.preventDefault();
@@ -16,10 +16,9 @@ const createNewProduct = (event) => {
     imageUrl: document.getElementById("imageProduct").value,
     price: parseInt(document.getElementById("priceProduct").value),
   };
-  form.reset();
 
   fetch(URL, {
-    method: method,
+    method: paperino,
     body: JSON.stringify(newProduct),
     headers: {
       "Content-Type": "application/json",
@@ -37,12 +36,54 @@ const createNewProduct = (event) => {
     })
     .then((createdProduct) => {
       console.log(createdProduct);
+      if (id) {
+        const messageAlert = document.getElementById("messageAlert");
+        const textAlert = document.getElementById("textAlert");
+        textAlert.innerText = "Prodotto modificato con successo!!";
+        messageAlert.classList.remove("d-none");
+        form.classList.add("d-none");
+
+        event.target.reset();
+        setTimeout(() => {
+          window.location.assign("./index.html");
+        }, 1000);
+      } else {
+        const messageAlert = document.getElementById("messageAlert");
+        const textAlert = document.getElementById("textAlert");
+        textAlert.innerText = "Prodotto inserito con successo!!";
+        messageAlert.classList.remove("d-none");
+        form.classList.add("d-none");
+
+        event.target.reset();
+        setTimeout(() => {
+          window.location.assign("./index.html");
+        }, 1000);
+      }
     })
     .catch((err) => console.log(err));
 };
 
 const resetForm = () => {
-  form.reset();
+  const messageAlert = document.getElementById("messageAlert");
+  const bgAlert = document.getElementById("bgAlert");
+  const textAlert = document.getElementById("textAlert");
+  bgAlert.classList.remove("alert-success");
+  bgAlert.classList.add("alert-danger");
+  textAlert.innerText = "Sei sicuro di voler resettare il form?";
+  const btnConfirmed = document.createElement("button");
+  btnConfirmed.classList.add("btn", "btn-outline-sucess");
+  btnConfirmed.innerText = "Si";
+  textAlert.appendChild(btnConfirmed);
+  form.classList.add("d-none");
+  messageAlert.classList.remove("d-none");
+  btnConfirmed.addEventListener("click", () => {
+    form.reset();
+    messageAlert.classList.add("d-none");
+    form.classList.remove("d-none");
+    setTimeout(() => {
+      window.location.assign("./index.html");
+    }, 1000);
+  });
 };
 btnReset.addEventListener("click", resetForm);
 
@@ -58,7 +99,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const btnDelete = document.getElementById("deleteProduct");
     btnDelete.classList.remove("d-none");
     fetch(URL, {
-      method: method,
+      method: paperino,
 
       headers: {
         "Content-Type": "application/json",
@@ -88,4 +129,54 @@ window.addEventListener("DOMContentLoaded", () => {
     const title = document.getElementById("newOrMod");
     title.innerText = "Crea un nuovo prodotto";
   }
+  const btnDelete = document.getElementById("deleteProduct");
+  const hasConfirmed = () => {
+    const messageAlert = document.getElementById("messageAlert");
+    const bgAlert = document.getElementById("bgAlert");
+    const textAlert = document.getElementById("textAlert");
+    bgAlert.classList.remove("alert-success");
+    bgAlert.classList.add("alert-danger");
+    textAlert.innerText = "Sei sicuro di voler eliminare il prodotto?";
+    const btnConfirmed = document.createElement("button");
+    btnConfirmed.classList.add("btn", "btn-outline-sucess");
+    btnConfirmed.innerText = "Si";
+    textAlert.appendChild(btnConfirmed);
+    form.classList.add("d-none");
+    messageAlert.classList.remove("d-none");
+    btnConfirmed.addEventListener("click", () => {
+      deleteProduct();
+      messageAlert.classList.add("d-none");
+      form.classList.remove("d-none");
+    });
+  };
+  const deleteProduct = () => {
+    fetch(URL, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjE4ZjYwYTdmMzA0NjAwMWFlNTlmYTEiLCJpYXQiOjE3MTI5MTE4ODIsImV4cCI6MTcxNDEyMTQ4Mn0.N1HwU5D3A4Ct3zgtwCEWlWzKHKjAauQfHbbMNuenJ4U",
+      },
+    })
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          throw new Error("Errore nella fetch");
+        }
+      })
+      .then(() => {
+        const messageAlert = document.getElementById("messageAlert");
+        messageAlert.innerText = "Prodotto eliminato con successo!!";
+        messageAlert.classList.remove("d-none");
+        form.classList.add("d-none");
+
+        setTimeout(() => {
+          window.location.assign("./index.html");
+        }, 1000);
+      })
+      .catch((err) => console.log(err));
+  };
+  btnDelete.addEventListener("click", hasConfirmed);
 });
