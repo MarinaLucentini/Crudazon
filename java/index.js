@@ -12,9 +12,9 @@ const createCard = (
   col.classList.add("col");
   const card = document.createElement("div");
   card.classList.add("card");
-  card.style.height = "600px";
+  card.style.height = "500px";
   const imgProduct = document.createElement("img");
-  imgProduct.classList.add("card-img-top", "object-fit-cover");
+  imgProduct.classList.add("card-img-top", "object-fit-cover", "h-25");
   const containerText = document.createElement("div");
   containerText.classList.add(
     "card-body",

@@ -138,13 +138,20 @@ window.addEventListener("DOMContentLoaded", () => {
     bgAlert.classList.add("alert-danger");
     textAlert.innerText = "Sei sicuro di voler eliminare il prodotto?";
     const btnConfirmed = document.createElement("button");
-    btnConfirmed.classList.add("btn", "btn-outline-sucess");
+    btnConfirmed.classList.add("btn", "btn-outline-success", "mx-3");
     btnConfirmed.innerText = "Si";
-    textAlert.appendChild(btnConfirmed);
+    const btnNotConfirmed = document.createElement("button");
+    btnNotConfirmed.classList.add("btn", "btn-outline-warning");
+    btnNotConfirmed.innerText = "No";
+    textAlert.append(btnConfirmed, btnNotConfirmed);
     form.classList.add("d-none");
     messageAlert.classList.remove("d-none");
     btnConfirmed.addEventListener("click", () => {
       deleteProduct();
+      messageAlert.classList.add("d-none");
+      form.classList.remove("d-none");
+    });
+    btnNotConfirmed.addEventListener("click", () => {
       messageAlert.classList.add("d-none");
       form.classList.remove("d-none");
     });
