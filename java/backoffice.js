@@ -49,6 +49,12 @@ window.addEventListener("DOMContentLoaded", () => {
   if (id) {
     const title = document.getElementById("newOrMod");
     title.innerText = "Modifica prodotto";
+    const btnsubmit = document.getElementById("btnSubmit");
+    btnsubmit.innerText = "Modifica prodotto";
+    btnsubmit.classList.add("btn-outline-warning");
+    btnsubmit.classList.remove("btn-outline-success");
+    const btnDelete = document.getElementById("deleteProduct");
+    btnDelete.classList.remove("d-none");
     form.addEventListener(
       "submit",
       fetch(URL, {
