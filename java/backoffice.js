@@ -93,9 +93,6 @@ const createNewProduct = (event) => {
         messageAlert.classList.add("d-none");
         form.classList.remove("d-none");
       });
-      //  setTimeout(() => {
-      //    window.location.assign("./index.html");
-      //  }, 5000);
     });
 };
 
@@ -104,13 +101,13 @@ const resetForm = () => {
   const bgAlert = document.getElementById("bgAlert");
   const textAlert = document.getElementById("textAlert");
   bgAlert.classList.remove("alert-success");
-  bgAlert.classList.add("alert-danger");
+  bgAlert.classList.add("alert-light");
   textAlert.innerText = "Sei sicuro di voler resettare il form?";
   const btnConfirmed = document.createElement("button");
   btnConfirmed.classList.add("btn", "btn-outline-success", "mx-3");
   btnConfirmed.innerText = "Si";
   const btnNotConfirmed = document.createElement("button");
-  btnNotConfirmed.classList.add("btn", "btn-outline-warning");
+  btnNotConfirmed.classList.add("btn", "btn-outline-danger");
   btnNotConfirmed.innerText = "No";
   textAlert.append(btnConfirmed, btnNotConfirmed);
   form.classList.add("d-none");
@@ -209,13 +206,13 @@ window.addEventListener("DOMContentLoaded", () => {
     const bgAlert = document.getElementById("bgAlert");
     const textAlert = document.getElementById("textAlert");
     bgAlert.classList.remove("alert-success");
-    bgAlert.classList.add("alert-danger");
+    bgAlert.classList.add("alert-light");
     textAlert.innerText = "Sei sicuro di voler eliminare il prodotto?";
     const btnConfirmed = document.createElement("button");
     btnConfirmed.classList.add("btn", "btn-outline-success", "mx-3");
     btnConfirmed.innerText = "Si";
     const btnNotConfirmed = document.createElement("button");
-    btnNotConfirmed.classList.add("btn", "btn-outline-warning");
+    btnNotConfirmed.classList.add("btn", "btn-outline-danger");
     btnNotConfirmed.innerText = "No";
     textAlert.append(btnConfirmed, btnNotConfirmed);
     form.classList.add("d-none");
