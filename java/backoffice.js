@@ -32,7 +32,9 @@ const createNewProduct = (event) => {
         return response.json();
       } else {
         if (response.status === 400) {
-          throw new Error("Errore nella richiesta");
+          throw new Error(
+            "Errore nella richiesta! Non puoi inserire due prodotti con lo stesso nome"
+          );
         }
         if (response.status === 401) {
           throw new Error("Richiesta non autorizzata");
@@ -77,9 +79,23 @@ const createNewProduct = (event) => {
     })
     .catch((err) => {
       const messageAlert = document.getElementById("messageAlert");
-      messageAlert.innerText = err;
+      const textAlert = document.getElementById("textAlert");
+      textAlert.innerText = err;
+      messageAlert.classList.add("btn-outline-danger");
+      messageAlert.classList.remove("btn-outline-success");
       messageAlert.classList.remove("d-none");
       form.classList.add("d-none");
+      const btnRefresh = document.createElement("button");
+      btnRefresh.classList.add("btn", "btn-outline-warning");
+      btnRefresh.innerText = "Riprova";
+      messageAlert.appendChild(btnRefresh);
+      btnRefresh.addEventListener("click", () => {
+        messageAlert.classList.add("d-none");
+        form.classList.remove("d-none");
+      });
+      //  setTimeout(() => {
+      //    window.location.assign("./index.html");
+      //  }, 5000);
     });
 };
 
@@ -170,9 +186,18 @@ window.addEventListener("DOMContentLoaded", () => {
       })
       .catch((err) => {
         const messageAlert = document.getElementById("messageAlert");
-        messageAlert.innerText = err;
+        const textAlert = document.getElementById("textAlert");
+        textAlert.innerText = err;
         messageAlert.classList.remove("d-none");
         form.classList.add("d-none");
+        const btnRefresh = document.createElement("button");
+        btnRefresh.classList.add("btn", "btn-outline-warning");
+        btnRefresh.innerText = "Riprova";
+        messageAlert.appendChild(btnRefresh);
+        btnRefresh.addEventListener("click", () => {
+          messageAlert.classList.add("d-none");
+          form.classList.remove("d-none");
+        });
       });
   } else {
     const title = document.getElementById("newOrMod");
@@ -239,19 +264,25 @@ window.addEventListener("DOMContentLoaded", () => {
       })
       .then(() => {
         const messageAlert = document.getElementById("messageAlert");
-        messageAlert.innerText = "Prodotto eliminato con successo!!";
+        const textAlert = document.getElementById("textAlert");
+        textAlert.innerText = "Prodotto eliminato con successo!!";
         messageAlert.classList.remove("d-none");
         form.classList.add("d-none");
-
-        setTimeout(() => {
-          window.location.assign("./index.html");
-        }, 1000);
       })
       .catch((err) => {
         const messageAlert = document.getElementById("messageAlert");
-        messageAlert.innerText = err;
+        const textAlert = document.getElementById("textAlert");
+        textAlert.innerText = err;
         messageAlert.classList.remove("d-none");
         form.classList.add("d-none");
+        const btnRefresh = document.createElement("button");
+        btnRefresh.classList.add("btn", "btn-outline-warning");
+        btnRefresh.innerText = "Riprova";
+        messageAlert.appendChild(btnRefresh);
+        btnRefresh.addEventListener("click", () => {
+          messageAlert.classList.add("d-none");
+          form.classList.remove("d-none");
+        });
       });
   };
   btnDelete.addEventListener("click", hasConfirmed);
