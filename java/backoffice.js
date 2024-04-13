@@ -268,6 +268,9 @@ window.addEventListener("DOMContentLoaded", () => {
         textAlert.innerText = "Prodotto eliminato con successo!!";
         messageAlert.classList.remove("d-none");
         form.classList.add("d-none");
+        setTimeout(() => {
+          window.location.assign("./index.html");
+        }, 1000);
       })
       .catch((err) => {
         const messageAlert = document.getElementById("messageAlert");
