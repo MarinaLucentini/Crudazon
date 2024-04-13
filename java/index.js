@@ -1,11 +1,12 @@
-const URL = "https://striveschool-api.herokuapp.com/api/product/";
+const URL = "https:striveschool-api.herokuapp.com/api/product/";
 
 const createCard = (
   imageProduct,
   nameProducts,
   priceProducts,
   descriptionProducts,
-  productsId
+  productsId,
+  brand
 ) => {
   const row = document.getElementById("rowCard");
   const col = document.createElement("div");
@@ -14,27 +15,33 @@ const createCard = (
   card.classList.add("card");
   card.style.height = "500px";
   const imgProduct = document.createElement("img");
-  imgProduct.classList.add("card-img-top", "object-fit-cover", "h-25");
+  imgProduct.classList.add("card-img-top", "object-fit-cover", "h-50");
   const containerText = document.createElement("div");
+  const loading = document.querySelector(".spinner-border");
+  loading.classList.add("d-none");
   containerText.classList.add(
     "card-body",
     "h-100",
     "d-flex",
     "flex-column",
-    "justify-content-end"
+    "justify-content-end",
+    "align-items-center"
   );
-  const nameProduct = document.createElement("h5");
-  nameProduct.classList.add("card-title");
+  const nameProduct = document.createElement("h6");
+  nameProduct.classList.add("card-title", "d-inline-block");
   const descriptionProduct = document.createElement("p");
   descriptionProduct.classList.add("card-text");
-  const priceProduct = document.createElement("p");
-  priceProduct.classList.add("card-text", "display-6");
+  const priceProduct = document.createElement("h2");
+  priceProduct.classList.add("card-text", "mx-3", "badge", "text-bg-secondary");
   const btnContainer = document.createElement("div");
+  const containerTitle = document.createElement("div");
+  containerTitle.classList.add("d-flex", "align-items-center", "w-100");
   btnContainer.classList.add(
     "d-flex",
     "justify-content-between",
     "flex-column",
-    "flex-xl-row"
+    "flex-xl-row",
+    "w-100"
   );
 
   const btnMoreInfo = document.createElement("a");
@@ -50,11 +57,12 @@ const createCard = (
   col.appendChild(card);
   card.append(imgProduct, containerText);
   containerText.append(
-    nameProduct,
+    containerTitle,
     descriptionProduct,
-    priceProduct,
+
     btnContainer
   );
+  containerTitle.append(nameProduct, priceProduct);
   btnContainer.append(btnMoreInfo, btnModified);
   imgProduct.src = imageProduct;
   nameProduct.innerText = nameProducts;
@@ -80,13 +88,15 @@ const productSaved = () => {
     })
     .then((savedProduct) => {
       console.log(savedProduct);
+
       savedProduct.forEach((products) => {
         createCard(
           products.imageUrl,
           products.name,
           products.price,
           products.description,
-          products._id
+          products._id,
+          products.brand
         );
       });
     })

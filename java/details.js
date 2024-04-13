@@ -1,15 +1,28 @@
 const params = new URLSearchParams(window.location.search);
 const id = params.get("productId");
 const URL = "https://striveschool-api.herokuapp.com/api/product/" + id;
-const createCardSingleProducts = (img, name, description, price) => {
+const createCardSingleProducts = (
+  img,
+  name,
+  description,
+  price,
+  brand,
+  idProducts
+) => {
   const imageProduct = document.getElementById("imageProduct");
   const nameProduct = document.getElementById("nameProduct");
   const descriptionProduct = document.getElementById("descriptionProduct");
   const priceProduct = document.getElementById("priceProduct");
+  const nameBrand = document.getElementById("brand");
+  const idProduct = document.getElementById("idProduct");
+  const loading = document.querySelector(".spinner-border");
+  loading.classList.add("d-none");
   imageProduct.src = img;
   nameProduct.innerText = name;
   descriptionProduct.innerText = description;
   priceProduct.innerText = price + "€";
+  nameBrand.innerText = "Prodotto da: " + brand + " ";
+  idProduct.innerText = "Codice prodotto " + idProducts;
 };
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -30,8 +43,8 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     })
     .then((product) => {
-      const { name, description, price, imageUrl } = product;
-      createCardSingleProducts(imageUrl, name, description, price);
+      const { name, description, price, imageUrl, brand, _id } = product;
+      createCardSingleProducts(imageUrl, name, description, price, brand, _id);
     })
     .catch((err) => console.log(err));
 });

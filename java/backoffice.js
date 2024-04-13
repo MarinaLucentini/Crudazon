@@ -31,6 +31,21 @@ const createNewProduct = (event) => {
       if (response.ok) {
         return response.json();
       } else {
+        if (response.status === 400) {
+          throw new Error("Errore nella richiesta");
+        }
+        if (response.status === 401) {
+          throw new Error("Richiesta non autorizzata");
+        }
+        if (response.status === 403) {
+          throw new Error("Vietato l'accesso");
+        }
+        if (response.status === 404) {
+          throw new Error("Prodotto non trovato");
+        }
+        if (response.status === 500) {
+          throw new Error("Errore nel server");
+        }
         throw new Error("Errore nella fetch");
       }
     })
@@ -60,7 +75,12 @@ const createNewProduct = (event) => {
         }, 1000);
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      const messageAlert = document.getElementById("messageAlert");
+      messageAlert.innerText = err;
+      messageAlert.classList.remove("d-none");
+      form.classList.add("d-none");
+    });
 };
 
 const resetForm = () => {
@@ -71,9 +91,12 @@ const resetForm = () => {
   bgAlert.classList.add("alert-danger");
   textAlert.innerText = "Sei sicuro di voler resettare il form?";
   const btnConfirmed = document.createElement("button");
-  btnConfirmed.classList.add("btn", "btn-outline-sucess");
+  btnConfirmed.classList.add("btn", "btn-outline-success", "mx-3");
   btnConfirmed.innerText = "Si";
-  textAlert.appendChild(btnConfirmed);
+  const btnNotConfirmed = document.createElement("button");
+  btnNotConfirmed.classList.add("btn", "btn-outline-warning");
+  btnNotConfirmed.innerText = "No";
+  textAlert.append(btnConfirmed, btnNotConfirmed);
   form.classList.add("d-none");
   messageAlert.classList.remove("d-none");
   btnConfirmed.addEventListener("click", () => {
@@ -84,10 +107,16 @@ const resetForm = () => {
       window.location.assign("./index.html");
     }, 1000);
   });
+  btnNotConfirmed.addEventListener("click", () => {
+    messageAlert.classList.add("d-none");
+    form.classList.remove("d-none");
+  });
 };
 btnReset.addEventListener("click", resetForm);
 
 window.addEventListener("DOMContentLoaded", () => {
+  const loading = document.querySelector(".spinner-border");
+  loading.classList.add("d-none");
   form.addEventListener("submit", createNewProduct);
   if (id) {
     const title = document.getElementById("newOrMod");
@@ -111,6 +140,21 @@ window.addEventListener("DOMContentLoaded", () => {
         if (resp.ok) {
           return resp.json();
         } else {
+          if (response.status === 400) {
+            throw new Error("Errore nella richiesta");
+          }
+          if (response.status === 401) {
+            throw new Error("Richiesta non autorizzata");
+          }
+          if (response.status === 403) {
+            throw new Error("Vietato l'accesso");
+          }
+          if (response.status === 404) {
+            throw new Error("Prodotto non trovato");
+          }
+          if (response.status === 500) {
+            throw new Error("Errore nel server");
+          }
           throw new Error("Errore nella fetch");
         }
       })
@@ -124,7 +168,12 @@ window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("priceProduct").value = price;
         console.log(productToMod);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        const messageAlert = document.getElementById("messageAlert");
+        messageAlert.innerText = err;
+        messageAlert.classList.remove("d-none");
+        form.classList.add("d-none");
+      });
   } else {
     const title = document.getElementById("newOrMod");
     title.innerText = "Crea un nuovo prodotto";
@@ -170,6 +219,21 @@ window.addEventListener("DOMContentLoaded", () => {
         if (resp.ok) {
           return resp.json();
         } else {
+          if (response.status === 400) {
+            throw new Error("Errore nella richiesta");
+          }
+          if (response.status === 401) {
+            throw new Error("Richiesta non autorizzata");
+          }
+          if (response.status === 403) {
+            throw new Error("Vietato l'accesso");
+          }
+          if (response.status === 404) {
+            throw new Error("Prodotto non trovato");
+          }
+          if (response.status === 500) {
+            throw new Error("Errore nel server");
+          }
           throw new Error("Errore nella fetch");
         }
       })
@@ -183,7 +247,12 @@ window.addEventListener("DOMContentLoaded", () => {
           window.location.assign("./index.html");
         }, 1000);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        const messageAlert = document.getElementById("messageAlert");
+        messageAlert.innerText = err;
+        messageAlert.classList.remove("d-none");
+        form.classList.add("d-none");
+      });
   };
   btnDelete.addEventListener("click", hasConfirmed);
 });
