@@ -48,7 +48,7 @@ const createCard = (
   btnMoreInfo.classList.add("btn", "btn-outline-secondary");
   btnMoreInfo.innerText = "Scopri di più";
   const btnModified = document.createElement("a");
-  btnModified.classList.add("btn", "btn-outline-warning");
+  btnModified.classList.add("btn", "btn-outline-warning", "d-none");
   btnModified.innerText = "Modifica";
   btnMoreInfo.href = `./details.html?productId=${productsId}`;
   btnModified.href = `./backoffice.html?productId=${productsId}`;
@@ -69,6 +69,27 @@ const createCard = (
   descriptionProduct.innerText = descriptionProducts;
   priceProduct.innerText = priceProducts + "€";
 };
+const form = document.querySelector("form");
+console.log(form);
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const passwordAdmin = document.getElementById("passwordAdmin");
+  const linkBOffice = document.getElementById("linkBOffice");
+  const modal = document.getElementById("exampleModal");
+  const btnModified = document.querySelectorAll(".btn-outline-warning");
+  const userShopper = document.getElementById("userShopper");
+  const userAdmin = document.getElementById("userAdmin");
+  if (passwordAdmin.value === "montagna") {
+    btnModified.forEach((buttons) => {
+      buttons.classList.remove("d-none");
+    });
+    linkBOffice.classList.remove("d-none");
+    modal.classList.add("d-none");
+    userAdmin.classList.remove("d-none");
+    userShopper.classList.add("d-none");
+  }
+});
 const productSaved = () => {
   fetch(URL, {
     method: "GET",
