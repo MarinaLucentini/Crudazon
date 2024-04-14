@@ -22,7 +22,15 @@
       <div class="container-fluid">
         <a class="navbar-brand" href="index.html">🛍️CRUDAZON</a>
         <div class="d-flex align-items-center">
-          <h2><i class="bi bi-cart2 mx-3"></i></h2>
+          <h2>
+            <i
+              class="bi bi-cart2 mx-3"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseWidthExample"
+              aria-expanded="false"
+              aria-controls="collapseWidthExample"
+            ></i>
+          </h2>
           <button
             class="navbar-toggler"
             type="button"
@@ -48,15 +56,35 @@
     <div class="container mb-3">
       <div class="row row-cols-1">
         <div class="col d-flex align-items-center">
-          <h1>🛍️CRUDAZON</h1>
+          <a
+            href="index.html"
+            class="link-underline link-underline-opacity-0 text-white"
+          >
+            <h1>🛍️CRUDAZON</h1></a
+          >
+
           <div class="spinner-border text-primary mx-3" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>
       </div>
     </div>
+    <div style="min-height: 120px">
+      <div class="collapse collapse-horizontal" id="collapseWidthExample">
+        <div class="card card-body w-75 mx-auto">
+          <ul id="listChart" class="list-group"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="row row-cols-1 d-none" id="messageAlert">
+      <div class="col">
+        <div class="alert alert-success" role="alert" id="bgAlert">
+          <h4 id="textAlert">A simple success alert—check it out!</h4>
+        </div>
+      </div>
+    </div>
     <main class="d-flex vh-100 align-items-center">
-      <div class="container card mb-3">
+      <div class="container card mb-3" id="card">
         <div class="row row-cols-1 my-3">
           <div
             class="col d-flex justify-content-center flex-column align-items-center flex-lg-row"
@@ -88,7 +116,10 @@
               <p class="card-text" id="brand"></p>
               <p id="idProduct"></p>
 
-              <a href="#" class="btn btn-outline-danger mx-3 w-50 mx-auto"
+              <a
+                href="#"
+                class="btn btn-outline-success mx-3 w-50 mx-auto"
+                id="addToChart"
                 ><i class="bi bi-cart2 mx-3"></i>Aggiungi al carrello</a
               >
             </div>

@@ -79,6 +79,7 @@ const createNewProduct = (event) => {
     })
     .catch((err) => {
       const messageAlert = document.getElementById("messageAlert");
+      const bgAlert = document.getElementById("bgAlert");
       const textAlert = document.getElementById("textAlert");
       textAlert.innerText = err;
       messageAlert.classList.add("btn-outline-danger");
@@ -88,7 +89,7 @@ const createNewProduct = (event) => {
       const btnRefresh = document.createElement("button");
       btnRefresh.classList.add("btn", "btn-outline-warning");
       btnRefresh.innerText = "Riprova";
-      messageAlert.appendChild(btnRefresh);
+      bgAlert.appendChild(btnRefresh);
       btnRefresh.addEventListener("click", () => {
         messageAlert.classList.add("d-none");
         form.classList.remove("d-none");
@@ -183,6 +184,7 @@ window.addEventListener("DOMContentLoaded", () => {
       })
       .catch((err) => {
         const messageAlert = document.getElementById("messageAlert");
+        const bgAlert = document.getElementById("bgAlert");
         const textAlert = document.getElementById("textAlert");
         textAlert.innerText = err;
         messageAlert.classList.remove("d-none");
@@ -190,7 +192,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const btnRefresh = document.createElement("button");
         btnRefresh.classList.add("btn", "btn-outline-warning");
         btnRefresh.innerText = "Riprova";
-        messageAlert.appendChild(btnRefresh);
+        bgAlert.appendChild(btnRefresh);
         btnRefresh.addEventListener("click", () => {
           messageAlert.classList.add("d-none");
           form.classList.remove("d-none");
@@ -271,18 +273,14 @@ window.addEventListener("DOMContentLoaded", () => {
       })
       .catch((err) => {
         const messageAlert = document.getElementById("messageAlert");
+        const bgAlert = document.getElementById("bgAlert");
         const textAlert = document.getElementById("textAlert");
         textAlert.innerText = err;
         messageAlert.classList.remove("d-none");
         form.classList.add("d-none");
-        const btnRefresh = document.createElement("button");
-        btnRefresh.classList.add("btn", "btn-outline-warning");
-        btnRefresh.innerText = "Riprova";
-        messageAlert.appendChild(btnRefresh);
-        btnRefresh.addEventListener("click", () => {
-          messageAlert.classList.add("d-none");
-          form.classList.remove("d-none");
-        });
+        setTimeout(() => {
+          window.location.assign("./index.html");
+        }, 1000);
       });
   };
   btnDelete.addEventListener("click", hasConfirmed);
